@@ -1,0 +1,28 @@
+@(add: Form[CreateProductReviewForm], product: Seq[Product], user: Seq[User])(implicit request: MessagesRequestHeader, flash: Flash)
+
+@import helper._
+
+@flash.get("success").getOrElse("")
+
+@form(routes.ProductReviewController.addProductReviewHandle) {
+    @helper.CSRF.formField
+
+    <select name="productId" id="productId">
+    @for(u <- product){
+        <option value="@u.id" selected>@u.name</option>
+    }
+    </select>
+
+    @inputDate(add("date"))
+    @inputText(add("description"))
+
+    <select name="userId" id="userId">
+    @for(c <- user){
+        <option value="@c.id">@c.firstName</option>
+    }
+    </select>
+
+    <div class="buttons">
+        <input type="submit" value="Add"/>
+    </div>
+}

@@ -1,0 +1,32 @@
+@(order: Form[UpdateOrderForm], user: Seq[User])(implicit request: MessagesRequestHeader, flash: Flash)
+
+@import helper._
+
+@flash.get("success").getOrElse("")
+
+@form(routes.OrderController.updateOrderHandle) {
+    @helper.CSRF.formField
+    <input name="id" id="id" value="@order("id").value" type="hidden" />
+
+    <select name="userId" id="userId">
+    @for(u <- user){
+        @if(u.id.toString==order("userId").value.getOrElse(0)) {
+            <option value="@u.id" selected>@u.nick</option>
+        }else{
+            <option value="@u.id">@u.nick</option>
+        }
+    }
+    </select>
+
+    @inputText(order("status"))
+    @inputText(order("items"))
+    @inputText(order("tax"))
+    @inputText(order("price"))
+    @inputText(order("shipping"))
+    @checkbox(order("payed"))
+    @checkbox(order("realized"))
+
+    <div class="buttons">
+        <input type="submit" value="Update"/>
+    </div>
+}

@@ -1,0 +1,23 @@
+@(payments: Form[CreateUserPaymentForm], user: Seq[User])(implicit request: MessagesRequestHeader, flash: Flash)
+
+@import helper._
+
+@flash.get("success").getOrElse("")
+
+@form(routes.UserPaymentController.addUserPaymentHandle) {
+@helper.CSRF.formField
+<select name="userId" id="userId">
+    @for(u <- user){
+        <option value="@u.id" selected>@u.nick</option>
+    }
+</select>
+
+@inputText(payments("paymentType"))
+@inputText(payments("provider"))
+@inputText(payments("accountNumber"))
+@inputDate(payments("expiry"))
+
+<div class="buttons">
+    <input type="submit" value="Add"/>
+</div>
+}

@@ -1,0 +1,13 @@
+@(payments: Seq[UserPayment])
+
+@for(pay <- payments) {
+    @pay.userId
+    @pay.paymentType
+    @pay.provider
+    @pay.accountNumber
+    @pay.expiry
+
+    <a href="@controllers.routes.UserPaymentController.updateUserPayment(pay.id)">Edit</a>
+    <a href="@controllers.routes.UserPaymentController.deleteUserPayment(pay.id)">Delete</a>
+    </br>
+}

@@ -1,0 +1,11 @@
+@(users: Seq[User])
+
+@for(user <- users) {
+    <b>@user.nick</b>
+    @user.firstName
+    @user.lastName
+    @user.email
+    <a href="@controllers.routes.UserController.updateUser(user.id)">Edit</a>
+    <a href="@controllers.routes.UserController.deleteUser(user.id)">Delete</a>
+    </br>
+}

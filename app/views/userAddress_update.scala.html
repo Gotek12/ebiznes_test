@@ -1,0 +1,31 @@
+@(add: Form[UpdateUserAddressForm], user: Seq[User])(implicit request: MessagesRequestHeader, flash: Flash)
+
+@import helper._
+
+@flash.get("success").getOrElse("")
+
+@form(routes.UserAddressController.updateUserAddressHandle) {
+    @helper.CSRF.formField
+    <input name="id" id="id" value="@add("id").value" type="hidden" />
+
+    <select name="userId" id="userId">
+    @for(u <- user){
+        @if(u.id.toString==add("userId").value.getOrElse(0)) {
+            <option value="@u.id" selected>@u.nick</option>
+        }else{
+            <option value="@u.id">@u.nick</option>
+        }
+    }
+    </select>
+
+    @inputText(add("city"))
+    @inputText(add("postalCode"))
+    @inputText(add("country"))
+    @inputText(add("telephone"))
+    @inputText(add("mobile"))
+    @inputText(add("addressLine"))
+
+    <div class="buttons">
+        <input type="submit" value="Update"/>
+    </div>
+}

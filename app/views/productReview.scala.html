@@ -1,0 +1,13 @@
+@(rew: Seq[ProductReview])
+
+@for(a <- rew) {
+    @a.id |
+    @a.productId |
+    @a.date
+    @a.description
+    @a.userId
+
+    <a href="@controllers.routes.ProductReviewController.updateProductReview(a.id)">Edit</a>
+    <a href="@controllers.routes.ProductReviewController.deleteProductReview(a.id)">Delete</a>
+    </br>
+}

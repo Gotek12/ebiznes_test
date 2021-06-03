@@ -1,0 +1,25 @@
+@(add: Form[CreateUserAddressForm], user: Seq[User])(implicit request: MessagesRequestHeader, flash: Flash)
+
+@import helper._
+
+@flash.get("success").getOrElse("")
+
+@form(routes.UserAddressController.addUserAddressHandle) {
+    @helper.CSRF.formField
+    <select name="userId" id="userId">
+    @for(u <- user){
+        <option value="@u.id" selected>@u.nick</option>
+    }
+    </select>
+
+    @inputText(add("city"))
+    @inputText(add("postalCode"))
+    @inputText(add("country"))
+    @inputText(add("telephone"))
+    @inputText(add("mobile"))
+    @inputText(add("addressLine"))
+
+    <div class="buttons">
+        <input type="submit" value="Add"/>
+    </div>
+}

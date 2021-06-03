@@ -1,0 +1,11 @@
+version: "3"
+services:
+  ebiznes:
+    build: .
+    ports:
+      - "12345:9000"
+      - "12346:3000"
+    volumes:
+      - .:/home/wladyga/data/sklep_play/
+    working_dir: /home/wladyga/data/sklep_play
+    command: bash -c "sbt run"

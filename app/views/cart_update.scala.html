@@ -1,0 +1,20 @@
+@(cart: Form[UpdateCartForm], user: Seq[User])(implicit request: MessagesRequestHeader, flash: Flash)
+
+@import helper._
+
+@flash.get("success").getOrElse("")
+
+@form(routes.CartController.updateCartHandle()) {
+    @helper.CSRF.formField
+    <input name="id" id="id" value="@cart("id").value" type="hidden" />
+
+    <select name="userId" id="userId">
+    @for(u <- user){
+        <option value="@u.id" selected>@u.nick</option>
+    }
+    </select>
+
+    <div class="buttons">
+        <input type="submit" value="Update"/>
+    </div>
+}

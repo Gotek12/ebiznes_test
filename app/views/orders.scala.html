@@ -1,0 +1,16 @@
+@(add: Seq[Order])
+
+@for(a <- add) {
+    @a.userId
+    @a.status
+    @a.items
+    @a.tax
+    @a.price
+    @a.shipping
+    @a.payed
+    @a.realized
+
+    <a href="@controllers.routes.OrderController.updateOrder(a.id)">Edit</a>
+    <a href="@controllers.routes.OrderController.deleteOrder(a.id)">Delete</a>
+    </br>
+}

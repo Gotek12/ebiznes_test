@@ -1,0 +1,22 @@
+@(discount: Form[CreateDiscountForm], product: Seq[Product])(implicit request: MessagesRequestHeader, flash: Flash)
+
+@import helper._
+
+@flash.get("success").getOrElse("")
+
+@form(routes.DiscountController.addDiscountHandle) {
+    @helper.CSRF.formField
+    <select name="productId" id="productId">
+    @for(u <- product){
+        <option value="@u.id" selected>@u.name</option>
+    }
+    </select>
+
+    @inputText(discount("name"))
+    @inputText(discount("discountPercentage"))
+    @inputDate(discount("expire"))
+
+    <div class="buttons">
+        <input type="submit" value="Add"/>
+    </div>
+}

@@ -1,0 +1,26 @@
+@(order: Form[CreateOrderForm], user: Seq[User])(implicit request: MessagesRequestHeader, flash: Flash)
+
+@import helper._
+
+@flash.get("success").getOrElse("")
+
+@form(routes.OrderController.addOrderHandle) {
+    @helper.CSRF.formField
+    <select name="userId" id="userId">
+    @for(u <- user){
+        <option value="@u.id" selected>@u.nick</option>
+    }
+    </select>
+
+    @inputText(order("status"))
+    @inputText(order("items"))
+    @inputText(order("tax"))
+    @inputText(order("price"))
+    @inputText(order("shipping"))
+    @checkbox(order("payed"))
+    @checkbox(order("realized"))
+
+    <div class="buttons">
+        <input type="submit" value="Add"/>
+    </div>
+}
